@@ -1,0 +1,1 @@
+This is a development repository for the RPI CS Discord's Rubber Duck bot.  The bot is currently available at [https://github.com/rpi-cs-discord/Rubber-Duck](https://github.com/rpi-cs-discord/Rubber-Duck).
