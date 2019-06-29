@@ -19,5 +19,5 @@ Currently implemented features:
 * [X] QUACK
 * [ ] Remove a class ("!remove")
 * [ ] Translate text ("!translate")
-* [ ] Welcome message
+* [X] Welcome message
 * [ ] YACS search ("!yacs")
