@@ -39,6 +39,8 @@ use triggers::echo::*;
 If you want more information about a specific command, just pass the command as an argument."]
 #[command_not_found_text = "Could not find `{}`."]
 #[max_levenshtein_distance(3)]
+#[strikethrough_commands_tip_in_guild(" ")]
+#[strikethrough_commands_tip_in_dm(" ")]
 fn help_cmd(
     ctx: &mut Context,
     msg: &Message,

@@ -5,6 +5,7 @@ use serenity::model::prelude::*;
 use serenity::prelude::*;
 
 #[command]
+#[description = "Echoes the given message"]
 pub fn echo(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
     let content = &args.rest();
 
