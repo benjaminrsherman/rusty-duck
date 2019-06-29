@@ -1,4 +1,6 @@
 use getrandom::getrandom;
+use serenity::model::id::ChannelId;
+use serenity::prelude::Context;
 
 /// Returns a random i64 in the range `[start, end)`
 #[inline]
@@ -9,4 +11,25 @@ pub fn rand_range(start: usize, end: usize) -> usize {
     let rnd: usize = unsafe { std::mem::transmute(bytes) };
 
     rnd % (end - start) + start
+}
+
+pub fn delay_send(ctx: &Context, channel: &ChannelId, content: &str, delay_scale: usize) {
+    let mut delay = 1000 + 10 * content.len() / delay_scale;
+
+    while delay > 5000 {
+        if let Err(why) = channel.broadcast_typing(&ctx.http) {
+            eprintln!("Error broadcasting typing: {:?}", why);
+            break;
+        }
+        std::thread::sleep(std::time::Duration::from_millis(5000));
+        delay -= 5000;
+    }
+    if let Err(why) = channel.broadcast_typing(&ctx.http) {
+        eprintln!("Error broadcasting typing: {:?}", why);
+    }
+    std::thread::sleep(std::time::Duration::from_millis(delay as u64));
+
+    if let Err(why) = channel.say(&ctx.http, content) {
+        eprintln!("Error sending message: {:?}", why);
+    }
 }
