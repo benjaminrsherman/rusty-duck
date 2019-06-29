@@ -9,7 +9,7 @@ use serenity::prelude::*;
 pub fn echo(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
     let content = &args.rest();
 
-    utils::delay_send(ctx, &msg.channel_id, content, 1);
+    utils::delay_send(&ctx.http, &msg.channel_id, content, 1);
 
     Ok(())
 }

@@ -19,8 +19,13 @@ fn should_quack(ctx: &Context, msg: &Message) -> bool {
     let rdd_channel_id = data
         .get::<RDDChannelId>()
         .expect("Expected RDDChannel in ShareMap");
+    let identity = data
+        .get::<DuckIdentity>()
+        .expect("Expected DuckIdentity in ShareMap");
 
-    &msg.channel_id == rdd_channel_id || msg.is_private() || msg.mentions_user_id(bot_id)
+    (&msg.channel_id == rdd_channel_id && identity == &Identity::RubberDuck)
+        || msg.is_private()
+        || msg.mentions_user_id(bot_id)
 }
 
 pub fn quack(ctx: &Context, msg: &Message) {
@@ -35,5 +40,5 @@ pub fn quack(ctx: &Context, msg: &Message) {
 
     let idx = utils::rand_range(0, quacks.len());
 
-    utils::delay_send(ctx, &msg.channel_id, &quacks[idx], 1);
+    utils::delay_send(&ctx.http, &msg.channel_id, &quacks[idx], 1);
 }

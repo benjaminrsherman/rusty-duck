@@ -16,7 +16,7 @@ pub fn ai(ctx: &mut Context, msg: &Message) -> CommandResult {
         .get("academic_integrity")
         .expect("Expected 'academic_integrity' in ShareMap");
 
-    utils::delay_send(ctx, &msg.channel_id, ai_message, 2);
+    utils::delay_send(&ctx.http, &msg.channel_id, ai_message, 2);
 
     Ok(())
 }

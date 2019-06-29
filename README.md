@@ -5,7 +5,7 @@ Currently implemented features:
 * [ ] Add a class ("!add")
 * [ ] Automatic reactions
 * [ ] Classes output ("!classes")
-* [ ] Command to view code ("!code")
+* [X] Command to view code ("!code")
 * [ ] Logging
 * [X] Echo messages ("!echo")
 * [ ] Emoji mode ("!emoji", etc)

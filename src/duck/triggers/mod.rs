@@ -8,3 +8,6 @@ pub use academic_integrity::*;
 
 mod echo;
 pub use echo::*;
+
+mod code;
+pub use code::*;
