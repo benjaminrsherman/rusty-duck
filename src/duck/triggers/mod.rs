@@ -3,4 +3,8 @@
 mod quack;
 pub use quack::quack;
 
-pub mod echo;
+mod academic_integrity;
+pub use academic_integrity::*;
+
+mod echo;
+pub use echo::*;

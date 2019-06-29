@@ -1,6 +1,7 @@
 use serde::Deserialize;
 use serenity::model::id::{ChannelId, GuildId};
 use serenity::prelude::TypeMapKey;
+use std::collections::HashMap;
 
 #[derive(Deserialize)]
 pub struct Server {
@@ -13,6 +14,7 @@ pub struct Server {
 pub struct Duck {
     pub quacks: Vec<String>,
     pub server: Server,
+    pub messages: HashMap<String, String>,
 }
 
 pub struct QuackVec;
@@ -33,4 +35,9 @@ impl TypeMapKey for ServerId {
 pub struct WelcomeChannelId;
 impl TypeMapKey for WelcomeChannelId {
     type Value = ChannelId;
+}
+
+pub struct DuckMessages;
+impl TypeMapKey for DuckMessages {
+    type Value = HashMap<String, String>;
 }

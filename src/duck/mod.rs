@@ -26,7 +26,7 @@ use duck::*;
 
 // LOAD TRIGGERS
 mod triggers;
-use triggers::echo::*;
+use triggers::*;
 
 #[help]
 #[individual_command_tip = "Hello!\n\
@@ -48,7 +48,7 @@ fn help_cmd(
 
 group!({
     name: "general",
-    commands: [echo]
+    commands: [echo, ai]
 });
 
 pub fn init_client(client: &mut Client) -> Result<(), Box<Error>> {
@@ -63,6 +63,7 @@ pub fn init_client(client: &mut Client) -> Result<(), Box<Error>> {
         data.insert::<ServerId>(GuildId::from(duck.server.server_id));
         data.insert::<WelcomeChannelId>(ChannelId::from(duck.server.welcome_channel_id));
         data.insert::<RDDChannelId>(ChannelId::from(duck.server.rdd_channel_id));
+        data.insert::<DuckMessages>(duck.messages);
     }
 
     client.with_framework(
@@ -108,19 +109,31 @@ impl EventHandler for Handler {
         let welcome_channel_id = data
             .get::<WelcomeChannelId>()
             .expect("Expected WelcomeChannelId in ShareMap");
+
+        let messages_hashmap = data
+            .get::<DuckMessages>()
+            .expect("Expected DuckMessages in ShareMap");
+
+        let welcome_message_public_pre = messages_hashmap
+            .get("welcome_public_pre_mention")
+            .expect("Expected 'welcome_public_pre_mention' in DuckMessages");
+        let welcome_message_public_post = messages_hashmap
+            .get("welcome_public_post_mention")
+            .expect("Expected 'welcome_public_post_mention' in DuckMessages");
+
         let welcome_message_public = MessageBuilder::new()
-            .push("Welcome ")
+            .push(welcome_message_public_pre)
             .mention(&new_member)
-            .push("! Make sure to check your DM for how to view private class-specific chats.")
+            .push(welcome_message_public_post)
             .build();
         if let Err(why) = welcome_channel_id.say(&ctx.http, welcome_message_public) {
             eprintln!("Error sending message: {:?}", why);
         }
 
         // Send private instructions on how the server works
-        let welcome_message_dm =
-"Hi there! Welcome to the RPI Computer Science Discord Server. As you might’ve noticed, things look a little empty over there! Let’s fix that by giving you some class specific roles.
-To add a class, please message me `!add CLASS NAME`.  (You can view the list of classes below or with the command `!classes`)";
+        let welcome_message_dm = messages_hashmap
+            .get("wecome_dm")
+            .expect("Expected 'welcome_dm' in DuckMessages");
 
         let member = match new_member.user_id().to_user(&ctx) {
             Ok(mbr) => mbr,
