@@ -12,6 +12,26 @@
 		"welcome_pub_pre_mention": "Welcome ",
 		"welcome_pub_post_mention": "! Make sure to check your PM for how to view private class-specific chats."
 	},
+	"auto_reacts": {
+		"school of computing": {
+			"probability": 100,
+			"reactions": [
+				"🇨",
+				"🇴",
+				"🇲",
+				"🇵",
+				"🇺",
+				"🇹",
+				"🇮",
+				"🇳",
+				"🇬"
+			]
+		},
+		"chad": {
+			"probability": 10,
+			"emotes": [594763887342125059]
+		}
+	},
 	"quacks": [
 		"\"I Quack therefore, I am\"-René Dequack",	  
 		"A quote from Professor Cutler: \n\"Quack quack duck quack quack quack quack rubber duck quack quack. Quack quack duck quack quackity quack  quack  duck  quack  quack.   Quack  quack  duck  quack  quack  quack  quack  rubber  duck  quack  quack. Quack quack duck quack quackity quack quack duck quack quack.\"",
