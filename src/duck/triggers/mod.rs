@@ -9,6 +9,9 @@ pub use code::*;
 mod echo;
 pub use echo::*;
 
+mod tex;
+pub use tex::*;
+
 // GENERIC
 mod generic;
 pub use generic::*;
