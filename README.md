@@ -3,7 +3,7 @@ This is a development repository for the RPI CS Discord's Rubber Duck bot.  The 
 Currently implemented features:
 * [X] Academic integrity ("!ai")
 * [ ] Add a class ("!add")
-* [ ] Automatic reactions
+* [X] Automatic reactions (There is a hacky work around for custom emotes, needs work)
 * [ ] Classes output ("!classes")
 * [X] Command to view code ("!code")
 * [ ] Logging

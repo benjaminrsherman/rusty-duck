@@ -79,6 +79,7 @@ pub fn init_client(
         // Miscellaenous Configuration Data
         data.insert::<DuckMessages>(duck.messages);
         data.insert::<QuackVec>(duck.quacks);
+        data.insert::<AutoReacts>(duck.auto_reacts);
     }
 
     client.with_framework(
@@ -95,6 +96,7 @@ pub fn init_client(
             })
             .normal_message(|ctx, message| {
                 triggers::quack(ctx, message);
+                triggers::auto_react(ctx, message);
             })
             .help(&HELP_CMD)
             .group(&GENERAL_GROUP),
