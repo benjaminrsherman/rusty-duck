@@ -33,24 +33,29 @@ pub fn auto_react(ctx: &Context, msg: &Message) {
             }
 
             if let Some(reactions) = &auto_reaction.emotes {
-                let guild_emotes = match msg.guild(ctx) {
-                    Some(guild) => (*guild.read()).emojis.clone(), // TODO: Fix this
+                match msg.guild(ctx) {
+                    Some(guild) => {
+                        let guild_emotes = &guild.read().emojis;
+
+                        for emote in reactions {
+                            let emote = match guild_emotes.get(emote) {
+                                Some(emote) => emote,
+                                None => {
+                                    eprintln!(
+                                        "Error finding {} in guild emote list, skipping",
+                                        emote
+                                    );
+                                    continue;
+                                }
+                            };
+
+                            if let Err(why) = msg.react(ctx, emote.clone()) {
+                                eprintln!("Error reacting to message: {:?}", why)
+                            }
+                        }
+                    }
                     None => continue,
                 };
-
-                for emote in reactions {
-                    let emote = match guild_emotes.get(emote) {
-                        Some(emote) => emote,
-                        None => {
-                            eprintln!("Error finding {} in guild emote list, skipping", emote);
-                            continue;
-                        }
-                    };
-
-                    if let Err(why) = msg.react(ctx, emote.clone()) {
-                        eprintln!("Error reacting to message: {:?}", why)
-                    }
-                }
             }
         }
     }
