@@ -1,5 +1,5 @@
 // code.rs
-use super::super::duck::*;
+use super::super::datatypes::*;
 use super::super::utils;
 use serenity::framework::standard::{macros::command, CommandError, CommandResult};
 use serenity::model::prelude::*;

@@ -9,6 +9,9 @@ pub use code::*;
 mod echo;
 pub use echo::*;
 
+pub mod emoji_only;
+pub use emoji_only::*;
+
 mod tex;
 pub use tex::*;
 

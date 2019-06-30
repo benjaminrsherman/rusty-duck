@@ -1,12 +1,13 @@
 use super::super::triggers::*;
 use super::super::*;
+use super::both_ducks_init;
 
 use serenity::prelude::*;
 use serenity::{
     framework::standard::{
         help_commands,
         macros::{group, help},
-        Args, CommandGroup, CommandResult, HelpOptions, StandardFramework,
+        Args, CommandGroup, CommandResult, HelpOptions,
     },
     model::{
         channel::Message,
@@ -17,11 +18,9 @@ use serenity::{
     utils::MessageBuilder,
 };
 use std::collections::HashSet;
-use std::sync::{mpsc::Receiver, Arc, Mutex};
+use std::sync::mpsc::Receiver;
 
 use std::error::Error;
-use std::fs::File;
-use std::io::BufReader;
 
 #[help]
 #[individual_command_tip = "Hello!\n\
@@ -43,56 +42,33 @@ fn help_cmd(
 
 group!({
     name: "general",
-    help_name: "",
+    help_name: "General commands",
+    options: {
+        checks: [EmojiMode],
+    },
     commands: [ai, code, echo, tex]
+});
+
+group!({
+    name: "admin",
+    help_name: "admin",
+    options: {
+        required_permissions: [ADMINISTRATOR],
+    },
+    commands: [emoji]
 });
 
 pub fn init_client(
     client: &mut Client,
     which_duck: Identity,
 ) -> Result<Receiver<(ChannelId, String, usize)>, Box<Error>> {
-    let file = File::open("database/duck.json")?;
-    let reader = BufReader::new(file);
-
-    let duck: Duck = serde_json::from_reader(reader)?;
-
-    let (sender, receiver) = std::sync::mpsc::channel();
-
-    {
-        let mut data = client.data.write();
-        // Client Data (used to communicate between ducks)
-        data.insert::<OtherDuck>(Arc::new(Mutex::new(sender)));
-        data.insert::<DuckIdentity>(which_duck);
-
-        // Server Data
-        data.insert::<ServerId>(GuildId::from(duck.server.server_id));
-        data.insert::<WelcomeChannelId>(ChannelId::from(duck.server.welcome_channel_id));
-        data.insert::<RDDChannelId>(ChannelId::from(duck.server.rdd_channel_id));
-
-        // Miscellaenous Configuration Data
-        data.insert::<DuckMessages>(duck.messages);
-        data.insert::<QuackVec>(duck.quacks);
-        data.insert::<AutoReacts>(duck.auto_reacts);
-    }
+    let (framework, receiver) = both_ducks_init(client, which_duck)?;
 
     client.with_framework(
-        StandardFramework::new()
-            .configure(|c| {
-                c.with_whitespace(false)
-                    .prefixes(vec!["!", "-", "~", "\\", "="])
-                    .on_mention(None)
-            })
-            .after(|_, _, command_name, error| {
-                if let Err(why) = error {
-                    eprintln!("Command '{}' returned error {:?}", command_name, why);
-                }
-            })
-            .normal_message(|ctx, message| {
-                triggers::quack(ctx, message);
-                triggers::auto_react(ctx, message);
-            })
+        framework
             .help(&HELP_CMD)
-            .group(&GENERAL_GROUP),
+            .group(&GENERAL_GROUP)
+            .group(&ADMIN_GROUP),
     );
 
     Ok(receiver)

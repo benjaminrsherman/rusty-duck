@@ -1,8 +1,8 @@
 mod multi_ducks;
 pub use multi_ducks::*;
 
-mod duck;
-pub use duck::*;
+mod datatypes;
+pub use datatypes::*;
 
 pub mod triggers;
 

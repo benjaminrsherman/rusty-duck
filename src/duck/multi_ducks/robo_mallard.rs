@@ -1,4 +1,3 @@
-use super::super::triggers;
 use super::super::triggers::*;
 use super::super::*;
 
@@ -7,20 +6,18 @@ use serenity::{
     framework::standard::{
         help_commands,
         macros::{group, help},
-        Args, CommandGroup, CommandResult, HelpOptions, StandardFramework,
+        Args, CommandGroup, CommandResult, HelpOptions,
     },
     model::{
         channel::Message,
         gateway::Ready,
-        id::{ChannelId, GuildId, UserId},
+        id::{ChannelId, UserId},
     },
 };
 use std::collections::HashSet;
-use std::sync::{mpsc::Receiver, Arc, Mutex};
+use std::sync::mpsc::Receiver;
 
 use std::error::Error;
-use std::fs::File;
-use std::io::BufReader;
 
 #[help]
 #[individual_command_tip = "Hello!\n\
@@ -58,49 +55,9 @@ pub fn init_client(
     client: &mut Client,
     which_duck: Identity,
 ) -> Result<Receiver<(ChannelId, String, usize)>, Box<Error>> {
-    let file = File::open("database/duck.json")?;
-    let reader = BufReader::new(file);
+    let (framework, receiver) = both_ducks_init(client, which_duck)?;
 
-    let duck: Duck = serde_json::from_reader(reader)?;
-
-    let (sender, receiver) = std::sync::mpsc::channel();
-
-    {
-        let mut data = client.data.write();
-        // Client Data (used to communicate between ducks)
-        data.insert::<OtherDuck>(Arc::new(Mutex::new(sender)));
-        data.insert::<DuckIdentity>(which_duck);
-
-        // Server Data
-        data.insert::<ServerId>(GuildId::from(duck.server.server_id));
-        data.insert::<WelcomeChannelId>(ChannelId::from(duck.server.welcome_channel_id));
-        data.insert::<RDDChannelId>(ChannelId::from(duck.server.rdd_channel_id));
-
-        // Miscellaenous Configuration Data
-        data.insert::<DuckMessages>(duck.messages);
-        data.insert::<QuackVec>(duck.quacks);
-        data.insert::<AutoReacts>(duck.auto_reacts);
-    }
-
-    client.with_framework(
-        StandardFramework::new()
-            .configure(|c| {
-                c.with_whitespace(false)
-                    .prefixes(vec!["!", "-", "~", "\\", "="])
-                    .on_mention(None)
-            })
-            .after(|_, _, command_name, error| {
-                if let Err(why) = error {
-                    println!("Command '{}' returned error {:?}", command_name, why);
-                }
-            })
-            .normal_message(|ctx, message| {
-                triggers::quack(ctx, message);
-                triggers::auto_react(ctx, message);
-            })
-            .help(&HELP_CMD)
-            .group(&GENERAL_GROUP),
-    );
+    client.with_framework(framework.help(&HELP_CMD).group(&GENERAL_GROUP));
 
     Ok(receiver)
 }
