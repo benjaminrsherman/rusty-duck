@@ -1,5 +1,5 @@
 // generic.rs
-use super::super::super::duck::*;
+use super::super::super::datatypes::*;
 use super::super::super::utils;
 use serenity::{model::prelude::Message, prelude::Context};
 

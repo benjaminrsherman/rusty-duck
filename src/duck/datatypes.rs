@@ -1,7 +1,7 @@
-use serde::Deserialize;
-use serenity::model::id::{ChannelId, EmojiId, GuildId};
+use serde::{Deserialize, Serialize};
+use serenity::model::id::{ChannelId, EmojiId, GuildId, UserId};
 use serenity::prelude::TypeMapKey;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::sync::{mpsc::Sender, Arc, Mutex};
 
 // Used to keep track of which duck is which
@@ -71,4 +71,27 @@ impl TypeMapKey for DuckIdentity {
 pub struct AutoReacts;
 impl TypeMapKey for AutoReacts {
     type Value = HashMap<String, AutoReaction>;
+}
+
+#[derive(PartialEq, Eq, Hash, Clone, Copy)]
+pub enum EmojiModeEntity {
+    Channel(ChannelId),
+    User(UserId),
+}
+
+pub struct EmojiModeStates;
+impl TypeMapKey for EmojiModeStates {
+    type Value = HashSet<EmojiModeEntity>;
+}
+
+pub struct EmojiList;
+impl TypeMapKey for EmojiList {
+    type Value = HashSet<String>;
+}
+
+// A set of users and channels currently in emoji mode
+#[derive(Deserialize, Serialize)]
+pub struct EmojiModeLog {
+    pub channels: HashSet<ChannelId>,
+    pub users: HashSet<UserId>,
 }

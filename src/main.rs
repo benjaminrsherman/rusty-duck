@@ -3,6 +3,7 @@ use duck::interduck::interduck_communication;
 use duck::*;
 
 extern crate regex;
+extern crate unicode_segmentation;
 
 use serenity::prelude::*;
 

@@ -1,5 +1,7 @@
 use getrandom::getrandom;
+use serenity::cache::CacheRwLock;
 use serenity::http::raw::Http;
+use serenity::model::guild::PartialMember;
 use serenity::model::id::ChannelId;
 
 /// Returns a random i64 in the range `[start, end)`
@@ -32,4 +34,15 @@ pub fn delay_send(http: &Http, channel: &ChannelId, content: &str, delay_scale: 
     if let Err(why) = channel.say(http, content) {
         eprintln!("Error sending message: {:?}", why);
     }
+}
+
+pub fn is_admin(cache: impl AsRef<CacheRwLock>, member: &PartialMember) -> bool {
+    for roleid in &member.roles {
+        if let Some(role) = roleid.to_role_cached(&cache) {
+            if role.permissions.administrator() {
+                return true;
+            }
+        }
+    }
+    false
 }
