@@ -10,6 +10,9 @@ build-rust-latest:
     image: rust:latest
     script:
         - cargo build --verbose
+    only:
+        - master
+        - merge_requests
 
 build-rust-nightly:
     stage: build
@@ -28,6 +31,9 @@ audit:
         - cargo install --force cargo-audit
         - cargo build
         - cargo audit
+    only:
+        - master
+        - merge_requests
 
 style:
     stage: test
@@ -35,3 +41,6 @@ style:
     script:
         - rustup component add rustfmt
         - cargo fmt --all -- --check
+    only:
+        - master
+        - merge_requests
