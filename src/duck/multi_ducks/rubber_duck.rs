@@ -83,7 +83,7 @@ pub fn init_client(
             })
             .after(|_, _, command_name, error| {
                 if let Err(why) = error {
-                    println!("Command '{}' returned error {:?}", command_name, why);
+                    eprintln!("Command '{}' returned error {:?}", command_name, why);
                 }
             })
             .normal_message(|ctx, message| {
@@ -140,7 +140,7 @@ impl EventHandler for Handler {
 
         // Send private instructions on how the server works
         let welcome_message_dm = messages_hashmap
-            .get("wecome_dm")
+            .get("welcome_dm")
             .expect("Expected 'welcome_dm' in DuckMessages");
 
         let member = match new_member.user_id().to_user(&ctx) {
