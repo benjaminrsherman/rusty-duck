@@ -11,7 +11,7 @@ Currently implemented features:
 * [ ] Emoji mode ("!emoji", etc)
 * [ ] Class generation ("\gen_class")
 * [X] Help ("!help")
-* [ ] LaTeX rendering ("!tex")
+* [X] LaTeX rendering ("!tex")
 * [ ] lmgtfy support ("!lmgtfy")
 * [ ] lmdtfy support ("!lmdtfy")
 * [ ] Man page support ("man")
