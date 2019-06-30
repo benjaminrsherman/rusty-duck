@@ -43,6 +43,7 @@ fn help_cmd(
 
 group!({
     name: "general",
+    help_name: "",
     commands: [ai, code, echo]
 });
 

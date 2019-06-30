@@ -47,6 +47,7 @@ fn help_cmd(
 
 group!({
     name: "general",
+    help_name: "general",
     options: {
         only_in: "dms",
     },
