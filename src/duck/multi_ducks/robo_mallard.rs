@@ -51,7 +51,7 @@ group!({
     options: {
         only_in: "dms",
     },
-    commands: [ai, code, echo]
+    commands: [ai, code, echo, tex]
 });
 
 pub fn init_client(
