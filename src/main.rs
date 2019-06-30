@@ -2,6 +2,8 @@ mod duck;
 use duck::interduck::interduck_communication;
 use duck::*;
 
+extern crate regex;
+
 use serenity::prelude::*;
 
 fn main() {

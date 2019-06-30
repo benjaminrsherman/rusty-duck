@@ -44,7 +44,7 @@ fn help_cmd(
 group!({
     name: "general",
     help_name: "",
-    commands: [ai, code, echo]
+    commands: [ai, code, echo, tex]
 });
 
 pub fn init_client(
