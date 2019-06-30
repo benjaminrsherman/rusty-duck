@@ -78,7 +78,7 @@ pub fn init_client(
         StandardFramework::new()
             .configure(|c| {
                 c.with_whitespace(false)
-                    .prefixes(vec!["!", "-", "~", "\\"])
+                    .prefixes(vec!["!", "-", "~", "\\", "="])
                     .on_mention(None)
             })
             .after(|_, _, command_name, error| {
