@@ -1,6 +1,6 @@
 // generic.rs
-use super::super::duck::*;
-use super::super::utils;
+use super::super::super::duck::*;
+use super::super::super::utils;
 use serenity::{model::prelude::Message, prelude::Context};
 
 fn should_quack(ctx: &Context, msg: &Message) -> bool {
