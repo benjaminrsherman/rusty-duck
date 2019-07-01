@@ -48,7 +48,7 @@ group!({
     options: {
         only_in: "dms",
     },
-    commands: [ai, code, echo, lmdtfy, lmgtfy, tex]
+    commands: [ai, code, echo, lmdtfy, lmgtfy, man, tex]
 });
 
 pub fn init_client(

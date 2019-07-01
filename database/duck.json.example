@@ -8,6 +8,8 @@
 		"academic_integrity": "Please do not share any class related code on this server. If you see any code please PM an admin to have it removed. \nAlso make sure you are following the Academic Integrity as stated on page 16 of the Student Handbook: https://info.rpi.edu/sites/default/files/Rensselaer%20Handbook%20of%20Student%20Rights%20%26%20Responsibilities%20%C2%BB.pdf",
 		"code_rd": "My code can be found here: https://gitlab.com/phi11ipus/rusty-duck\nFeel free to add issues to the issue tracker or submit pull requests.\nRubber Duck is courtesy of \"Eli#8092\" and \"Phi11ipus#4667\". If you find any bugs or have a feature suggestion, feel free to send one of them a DM.",
 		"code_rm": "Hold up, my code can also be found at that link... Stop trying to take credit for all my hard work!",
+		"man_page_not_found_pre": "Man page for `",
+		"man_page_not_found_post": "` not found!",
 		"welcome_dm": "Hi there! Welcome to the RPI Computer Science Discord Server. As you might’ve noticed, things look a little empty over there! Let’s fix that by giving you some class specific roles.\nTo add a class, please message me `!add CLASS NAME`.  (You can view the list of classes below or with the command `!classes`)\nTo remove a class, please message me `!remove CLASS NAME`.\nIf you want to see the chats for all classes you can also `!add All-Seer`\nIf you have any questions feel free to message in the random/welcome chats or PM one of the admins, also to view the commands again type `!help`.\nOnce again, welcome!",
 		"welcome_pub_pre_mention": "Welcome ",
 		"welcome_pub_post_mention": "! Make sure to check your PM for how to view private class-specific chats."

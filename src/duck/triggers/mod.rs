@@ -12,8 +12,11 @@ pub use echo::*;
 pub mod emoji_only;
 pub use emoji_only::*;
 
-pub mod lmgtfy;
+mod lmgtfy;
 pub use lmgtfy::*;
+
+mod man;
+pub use man::*;
 
 mod tex;
 pub use tex::*;

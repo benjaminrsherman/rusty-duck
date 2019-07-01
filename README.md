@@ -10,7 +10,7 @@ Currently implemented features:
 * [X] LaTeX rendering ("!tex")
 * [X] lmgtfy support ("!lmgtfy")
 * [X] lmdtfy support ("!lmdtfy")
-* [ ] Man page support ("!man")
+* [X] Man page support ("!man")
 * [X] QUACK
 * [ ] Translate text ("!translate")
 * [X] Welcome message
