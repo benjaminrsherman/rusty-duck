@@ -1,4 +1,4 @@
-This is a development repository for the RPI CS Discord's Rubber Duck bot.  The bot is currently available at [https://github.com/rpi-cs-discord/Rubber-Duck](https://github.com/rpi-cs-discord/Rubber-Duck).
+This is an experimental port of some of the features found in the RPI CS Discord Server's Rubber Duck Bot.  Certain features found in the main bot (namely all features relating to class roles) are not implemented.  The production version of this bot is currently available at [https://github.com/rpi-cs-discord/Rubber-Duck](https://github.com/rpi-cs-discord/Rubber-Duck).
 
 Currently implemented features:
 * [X] Academic integrity ("!ai")
