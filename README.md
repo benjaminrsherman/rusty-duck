@@ -14,4 +14,3 @@ Currently implemented features:
 * [X] QUACK
 * [ ] Translate text ("!translate")
 * [X] Welcome message
-* [ ] YACS search ("!yacs")
