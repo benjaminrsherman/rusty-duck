@@ -8,7 +8,7 @@ Currently implemented features:
 * [X] Command to view code ("!code")
 * [ ] Logging
 * [X] Echo messages ("!echo")
-* [ ] Emoji mode ("!emoji", etc)
+* [X] Emoji mode ("!emoji", etc)
 * [ ] Class generation ("\gen_class")
 * [X] Help ("!help")
 * [X] LaTeX rendering ("!tex")
