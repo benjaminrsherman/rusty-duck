@@ -12,5 +12,4 @@ Currently implemented features:
 * [X] lmdtfy support ("!lmdtfy")
 * [X] Man page support ("!man")
 * [X] QUACK
-* [ ] Translate text ("!translate")
 * [X] Welcome message
