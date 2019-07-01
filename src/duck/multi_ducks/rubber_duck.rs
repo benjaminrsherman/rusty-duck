@@ -46,7 +46,7 @@ group!({
     options: {
         checks: [EmojiMode],
     },
-    commands: [ai, code, echo, tex]
+    commands: [ai, code, echo, lmdtfy, lmgtfy, tex]
 });
 
 group!({

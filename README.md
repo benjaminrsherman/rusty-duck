@@ -8,8 +8,8 @@ Currently implemented features:
 * [X] Emoji mode ("!emoji", etc)
 * [X] Help ("!help")
 * [X] LaTeX rendering ("!tex")
-* [ ] lmgtfy support ("!lmgtfy")
-* [ ] lmdtfy support ("!lmdtfy")
+* [X] lmgtfy support ("!lmgtfy")
+* [X] lmdtfy support ("!lmdtfy")
 * [ ] Man page support ("!man")
 * [X] QUACK
 * [ ] Translate text ("!translate")
